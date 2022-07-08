@@ -1,0 +1,1 @@
+psql --host=postgresql-server-roger.postgres.database.azure.com --port=5432 --username=azureuser@postgresql-server-roger --dbname=postgres
