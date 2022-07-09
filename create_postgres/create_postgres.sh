@@ -20,6 +20,7 @@ echo "Creating $resourceGroup in $location..."
 az group create --name $resourceGroup --location "$location" --tags $tag
 
 server="postgresql-server-roger"
+dbname="Poker"
 sku="Standard_B1ms"
 tier="Burstable"
 storage="32"
@@ -43,6 +44,12 @@ az postgres flexible-server create \
     --tier $tier \
     --storage-size $storage \
     --yes
+
+az sql db create \
+    --name $dbname\
+    --server $server \
+    --resource-group $resourceGroup \
+ -g <resource-group> -s <server-name> -n my-db --service-objective GP_Gen5_2
 
 # Configure a firewall rule for the server 
 echo "Configuring a firewall rule for $server for the IP address range of $startIp to $endIp"
