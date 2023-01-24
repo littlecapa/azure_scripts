@@ -1,5 +1,6 @@
 #!/bin/bash
-resourceGroup="RogerPokerRG"
+
+source config.sh
 
 while getopts r: flag
 do

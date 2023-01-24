@@ -2,9 +2,7 @@
 #
 # Template: https://docs.microsoft.com/de-de/azure/postgresql/single-server/quickstart-create-server-database-azure-cli
 #
-resourceGroup="RogerPokerRG"
-location="westeurope"
-password="fjdhfjdhfjhjTTRT%%%&667676767"
+source config.sh
 
 while getopts r:l:p: flag
 do
@@ -19,16 +17,6 @@ done
 echo "Creating $resourceGroup in $location..."
 az group create --name $resourceGroup --location "$location" --tags $tag
 
-server="postgresql-server-roger"
-dbname="Poker"
-sku="Standard_B1ms"
-tier="Burstable"
-storage="32"
-login="azureuser"
-# Specify appropriate IP address values for your environment
-# to limit / allow access to the PostgreSQL server
-startIp=0.0.0.0
-endIp=255.255.255.255
 echo "Using resource group $resourceGroup with login: $login, password: $password..."
 
 # Create a PostgreSQL server in the resource group
@@ -43,13 +31,8 @@ az postgres flexible-server create \
     --sku-name $sku \
     --tier $tier \
     --storage-size $storage \
+    --database-name $dbname \
     --yes
-
-az sql db create \
-    --name $dbname\
-    --server $server \
-    --resource-group $resourceGroup \
- -g <resource-group> -s <server-name> -n my-db --service-objective GP_Gen5_2
 
 # Configure a firewall rule for the server 
 echo "Configuring a firewall rule for $server for the IP address range of $startIp to $endIp"
